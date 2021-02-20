@@ -7,6 +7,7 @@ export const TopMenu = () => {
       <span />
       <TMS.NiceLink to="/">Home</TMS.NiceLink>
       <TMS.NiceLink to="/info">Info</TMS.NiceLink>
+      <TMS.NiceLink to="/da">Dashboard</TMS.NiceLink>
     </TMS.Nav>
   )
 }
