@@ -2,6 +2,7 @@ import { Button, TextField } from '@material-ui/core'
 import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../../config/firebase'
 import * as DS from './dashboard.style'
+import { RetrospectiveList } from '../retrospective-list'
 
 export const Dashboard = () => {
   const [list, setList] = useState([])
@@ -10,22 +11,23 @@ export const Dashboard = () => {
   // vreau sa chem ceva o singura data
   useEffect(() => {
     // si asa facem ceva o singura data
-    db.collection('felix-si-brando').onSnapshot(snapshot => {
-      setList(snapshot.docs.map(test => ({
-        id: test.id,
-        ...test.data()
-      })))
-      // console.log(snapshot.size)
-    })
+    db
+      .collection('retrospective')
+      .onSnapshot(snapshot => {
+        setList(snapshot.docs.map(retrospective => ({
+          id: retrospective.id,
+          ...retrospective.data()
+        })))
+        // console.log(snapshot.size)
+      })
   }, [])
-
-  const adaugaAcumaSauTeFacPunctePunctePuncte = () => {
-    
-  }
 
   const deleteItem = id => {
     console.log(`Sterge-l pe ala cu id: ${id}`)
-    db.collection('felix-si-brando').doc(id).delete()
+    db
+      .collection('retrospective')
+      .doc(id)
+      .delete()
   }
 
   const handleGigiSubmit = e => {
@@ -44,6 +46,8 @@ export const Dashboard = () => {
     setRetrospectiveName(value)
   }
 
+  console.log(list)
+
   return (
     <form onSubmit={handleGigiSubmit}>
       <DS.StyledFormWrapper>
@@ -60,11 +64,11 @@ export const Dashboard = () => {
         <Button
           variant="contained"
           color="secondary"
-          onClick={adaugaAcumaSauTeFacPunctePunctePuncte}
           type="submit"
         >
-          Add something to the db
+          Create retrospective
         </Button>
+        <RetrospectiveList sterge={deleteItem} list={list} />
       </DS.StyledFormWrapper>
     </form>
   )
