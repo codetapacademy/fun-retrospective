@@ -30,9 +30,13 @@ export const Dashboard = () => {
 
   const handleGigiSubmit = e => {
     e.preventDefault()
-    console.log(
-      retrospectiveName
-    )
+    if (retrospectiveName.length > 3) {
+      db.collection('retrospective').add({
+        retrospectiveName
+      })
+
+      setRetrospectiveName('')
+    }
   }
 
   const faCevaCuAsta = e => {
