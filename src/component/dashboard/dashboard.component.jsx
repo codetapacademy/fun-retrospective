@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core'
 import React, { useEffect, useRef, useState } from 'react'
-import { db } from '../../config/firebase'
+import { db, ts } from '../../config/firebase'
 import { navigate } from '@reach/router'
 import * as DS from './dashboard.style'
 import { RetrospectiveList } from '../retrospective-list'
@@ -14,6 +14,7 @@ export const Dashboard = () => {
     // si asa facem ceva o singura data
     db
       .collection('retrospective')
+      .orderBy('ts', 'asc')
       .onSnapshot(snapshot => {
         setList(snapshot.docs.map(retrospective => ({
           id: retrospective.id,
@@ -52,9 +53,12 @@ export const Dashboard = () => {
   const handleGigiSubmit = e => {
     e.preventDefault()
     if (retrospectiveName.length > 3) {
-      db.collection('retrospective').add({
-        retrospectiveName
-      })
+      db
+        .collection('retrospective')
+        .add({
+          retrospectiveName,
+          ts
+        })
 
       setRetrospectiveName('')
     }
