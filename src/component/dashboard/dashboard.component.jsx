@@ -1,6 +1,7 @@
 import { Button, TextField } from '@material-ui/core'
 import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../../config/firebase'
+import { navigate } from '@reach/router'
 import * as DS from './dashboard.style'
 import { RetrospectiveList } from '../retrospective-list'
 
@@ -21,6 +22,23 @@ export const Dashboard = () => {
         // console.log(snapshot.size)
       })
   }, [])
+
+  const sendAction = (action, id) => {
+    switch(action) {
+      case 'delete':
+        deleteItem(id);
+        break;
+      case 'select':
+        selectItem(id);
+        break;
+      default:
+        console.log('Moare verisorul de ciuda')
+    }
+  }
+
+  const selectItem = id => {
+    // selectItem
+  }
 
   const deleteItem = id => {
     console.log(`Sterge-l pe ala cu id: ${id}`)
@@ -68,7 +86,7 @@ export const Dashboard = () => {
         >
           Create retrospective
         </Button>
-        <RetrospectiveList sterge={deleteItem} list={list} />
+        <RetrospectiveList sendAction={sendAction} list={list} />
       </DS.StyledFormWrapper>
     </form>
   )
