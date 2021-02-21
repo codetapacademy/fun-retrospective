@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Button, Fab } from '@material-ui/core'
 import React from 'react'
 import * as RLS from './retrospective-list.style'
 
@@ -7,13 +7,14 @@ export const RetrospectiveList = ({ list, sterge }) => (
     {list.map(({ id, retrospectiveName }) => (
       <>
         <div>{retrospectiveName}</div>
-        <Button
+        <Fab
           variant="contained"
           color="secondary"
+          size="small"
           onClick={() => sterge(id)}
         >
-          {id}
-        </Button>
+          &times;
+        </Fab>
       </>
     ))}
   </RLS.Wrapper>
