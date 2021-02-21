@@ -4,6 +4,7 @@ import { TopMenu } from '../top-menu/top-menu.component'
 import { Info } from '../info'
 import { Login } from '../login'
 import { Dashboard } from '../dashboard'
+import { Room } from '../room'
 
 export const Retrospective = () => {
   return (
@@ -14,6 +15,7 @@ export const Retrospective = () => {
         <Info path="/info" />
         <Login path="/" />
         <Dashboard path="/da" />
+        <Room path="/room/:dasta" />
       </Router>
     </div>
   )

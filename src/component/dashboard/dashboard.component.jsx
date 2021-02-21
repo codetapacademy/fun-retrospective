@@ -38,6 +38,7 @@ export const Dashboard = () => {
 
   const selectItem = id => {
     // selectItem
+    navigate(`/room/${id}`)
   }
 
   const deleteItem = id => {
