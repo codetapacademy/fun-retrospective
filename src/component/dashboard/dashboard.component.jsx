@@ -14,7 +14,7 @@ export const Dashboard = () => {
     // si asa facem ceva o singura data
     db
       .collection('retrospective')
-      .orderBy('ts', 'asc')
+      .orderBy('ts', 'desc')
       .onSnapshot(snapshot => {
         setList(snapshot.docs.map(retrospective => ({
           id: retrospective.id,
