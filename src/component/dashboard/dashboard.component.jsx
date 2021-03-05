@@ -8,6 +8,7 @@ import { RetrospectiveList } from '../retrospective-list'
 export const Dashboard = () => {
   const [list, setList] = useState([])
   const [retrospectiveName, setRetrospectiveName] = useState('')
+  const [selected, setSelected] = useState(null)
 
   // vreau sa chem ceva o singura data
   useEffect(() => {
@@ -26,6 +27,11 @@ export const Dashboard = () => {
 
   const sendAction = (action, id) => {
     switch(action) {
+      case 'edit':
+        console.log(id);
+        setSelected(id)
+        setRetrospectiveName(list.find(item => item.id === id).retrospectiveName)
+        break;
       case 'delete':
         deleteItem(id);
         break;
@@ -53,13 +59,23 @@ export const Dashboard = () => {
   const handleGigiSubmit = e => {
     e.preventDefault()
     if (retrospectiveName.length > 3) {
-      db
-        .collection('retrospective')
-        .add({
+      const collection = db.collection('retrospective')
+      if (selected === null) {
+        // adaug in baza de date
+        collection.add({
           retrospectiveName,
           ts
         })
-
+      } else {
+        // modific in baza de date
+        collection
+          .doc(selected)
+          .set({
+            retrospectiveName,
+          }, { merge: true })
+        
+      }
+      setSelected(null)
       setRetrospectiveName('')
     }
   }
@@ -75,7 +91,7 @@ export const Dashboard = () => {
     <form onSubmit={handleGigiSubmit}>
       <DS.StyledFormWrapper>
         <h1>Create a new retrospective</h1>
-        <div>
+        <DS.StyledField>
           <TextField
             variant="outlined"
             color="primary"
@@ -83,14 +99,15 @@ export const Dashboard = () => {
             value={retrospectiveName}
             onChange={faCevaCuAsta}
           />
-        </div>
-        <Button
-          variant="contained"
-          color="secondary"
-          type="submit"
-        >
-          Create retrospective
-        </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            type="submit"
+            size="large"
+          >
+            {selected !== null ? 'Update' : 'Create'} retrospective
+          </Button>
+        </DS.StyledField>
         <RetrospectiveList sendAction={sendAction} list={list} />
       </DS.StyledFormWrapper>
     </form>

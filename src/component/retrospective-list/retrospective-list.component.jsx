@@ -12,6 +12,15 @@ export const RetrospectiveList = ({ list, sendAction }) => (
             variant="round"
             color="secondary"
             size="small"
+            onClick={() => sendAction('edit', id)}
+          >
+            ✐
+          </Fab>
+
+          <Fab
+            variant="round"
+            color="secondary"
+            size="small"
             onClick={() => sendAction('select', id)}
           >
             🚀
