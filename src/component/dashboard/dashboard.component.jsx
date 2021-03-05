@@ -58,7 +58,7 @@ export const Dashboard = () => {
 
   const handleGigiSubmit = e => {
     e.preventDefault()
-    if (retrospectiveName.length > 3) {
+    if (retrospectiveName.length > 3) { // jeg de linie, cine m-a pus s-o scriu
       const collection = db.collection('retrospective')
       if (selected === null) {
         // adaug in baza de date

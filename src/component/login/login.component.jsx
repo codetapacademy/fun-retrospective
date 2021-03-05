@@ -1,14 +1,27 @@
 import React from 'react'
 import { Button, TextField } from '@material-ui/core'
-import { auth, GitHubProvider } from '../../config/firebase'
+import { useSelector, useDispatch } from 'react-redux'
 
-const user = window.localStorage.getItem('user-fun-retrospective') 
-  ? JSON.parse(window.localStorage.getItem('user-fun-retrospective'))
-  : ''
-console.log(';########################')
-console.log(user)
+import { auth, GitHubProvider } from '../../config/firebase'
+import { setUserAction, logOutAction } from '../../store/user'
+
+// const user = window.localStorage.getItem('user-fun-retrospective') 
+//   ? JSON.parse(window.localStorage.getItem('user-fun-retrospective'))
+//   : ''
+// console.log(';########################')
+// console.log(user)
 
 export const Login = () => {
+  const [
+    isLoggedIn,
+    user,
+  ] = useSelector(({ user }) => ([
+    user.isLoggedIn,
+    user.user
+  ]))
+
+  const dispatch = useDispatch()
+
   const vreauInauntru = () => {
     console.log('Pai eu am inteles')
     auth
@@ -21,12 +34,18 @@ export const Login = () => {
         console.log(displayName)
         console.log(photoURL)
 
-        window.localStorage.setItem('user-fun-retrospective', JSON.stringify({
+        dispatch(setUserAction({
           email,
           uid,
           displayName,
           photoURL
         }))
+        // window.localStorage.setItem('user-fun-retrospective', JSON.stringify({
+        //   email,
+        //   uid,
+        //   displayName,
+        //   photoURL
+        // }))
       })
       .catch(() => {
         console.log('am reusit sa nu fur toate parolele din lume')
@@ -34,7 +53,9 @@ export const Login = () => {
   }
 
   const scoateMaCaTeCasapesc = () => {
-    window.localStorage.setItem('user-fun-retrospective', '')
+    // window.localStorage.setItem('user-fun-retrospective', '')
+    dispatch(logOutAction())
+    // auth.
   }
 
   return (
@@ -49,7 +70,7 @@ export const Login = () => {
         />
       </div>
 
-      {!user && <div>
+      {!isLoggedIn && <div>
         <Button
           type="submit"
           variant="contained"
@@ -60,7 +81,7 @@ export const Login = () => {
         </Button>
       </div>}
 
-      {user && <div>
+      {isLoggedIn && <div>
         <Button
           type="submit"
           variant="contained"
