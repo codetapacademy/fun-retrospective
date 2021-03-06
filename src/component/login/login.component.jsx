@@ -1,9 +1,12 @@
 import React from 'react'
-import { Button, TextField } from '@material-ui/core'
+import { Button, IconButton, TextField } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { auth, GitHubProvider } from '../../config/firebase'
 import { setUserAction, logOutAction } from '../../store/user'
+import {
+  GitHub as GitHubIcon,
+} from '@material-ui/icons';
 
 // const user = window.localStorage.getItem('user-fun-retrospective') 
 //   ? JSON.parse(window.localStorage.getItem('user-fun-retrospective'))
@@ -25,14 +28,10 @@ export const Login = () => {
   const vreauInauntru = () => {
     console.log('Pai eu am inteles')
     auth
+      // .signInWithRedirect(GitHubProvider)
       .signInWithPopup(GitHubProvider)
       .then(({ user }) => {
         const { email, uid, displayName, photoURL } = user
-        console.log('am reusit sa fur toate parolele din lume')
-        console.log(email)
-        console.log(uid)
-        console.log(displayName)
-        console.log(photoURL)
 
         dispatch(setUserAction({
           email,
@@ -52,44 +51,12 @@ export const Login = () => {
       })
   }
 
-  const scoateMaCaTeCasapesc = () => {
-    // window.localStorage.setItem('user-fun-retrospective', '')
-    dispatch(logOutAction())
-    // auth.
-  }
-
   return (
     <div>
-      {/* <div>
-        <TextField/>
-      </div>
-
-      <div>
-        <TextField
-          type="password"
-        />
-      </div> */}
-
       {!isLoggedIn && <div>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          onClick={vreauInauntru}
-        >
-          Login
-        </Button>
-      </div>}
-
-      {isLoggedIn && <div>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          onClick={scoateMaCaTeCasapesc}
-        >
-          Logout
-        </Button>
+        <IconButton color="inherit" onClick={vreauInauntru}>
+          <GitHubIcon />
+        </IconButton>
       </div>}
     </div>
   )

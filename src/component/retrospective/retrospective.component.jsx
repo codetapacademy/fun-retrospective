@@ -9,6 +9,7 @@ import { Dashboard } from '../dashboard'
 import { Room } from '../room'
 import { NotFound } from '../not-found'
 import { Protected } from '../protected/protected.component'
+import * as RS from './retrospective.style'
 
 const useIsLoggedIn = () => {
   const isLoggedIn = useSelector(({ user }) => user.isLoggedIn)
@@ -23,7 +24,7 @@ export const Retrospective = () => {
   return (
     <div>
       <TopMenu />
-      <Router>
+      <RS.StyledRouter>
         <Login path="/login" />
         <NotFound default />
 
@@ -32,7 +33,7 @@ export const Retrospective = () => {
           <Info path="info" />
           <Dashboard path="dashboard" />
         </Protected>
-      </Router>
+      </RS.StyledRouter>
     </div>
   )
 }
