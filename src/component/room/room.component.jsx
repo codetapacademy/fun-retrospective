@@ -5,6 +5,7 @@ import { db } from '../../config/firebase'
 export const Room = () => {
   const { pathname } = useLocation()
   const [retrospective, setRetrospective] = useState({})
+  console.log('pathname', pathname)
 
   const id = pathname.split('/').pop()
 

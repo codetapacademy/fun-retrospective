@@ -20,24 +20,17 @@ const useIsLoggedIn = () => {
 }
 
 export const Retrospective = () => {
-  const isLoggedIn = useIsLoggedIn()
-  console.log(isLoggedIn)
-  // const isLoggedIn = useSelector(({ user }) => user.isLoggedIn)
   return (
     <div>
       <TopMenu />
       <Router>
         <Login path="/login" />
-        <Login path="/" />
         <NotFound default />
 
-        <Protected path="/user">
-          <Info path="/info" />
-          <Dashboard path="/da" />
-        </Protected>
-
-        <Protected path="/room">
+        <Protected path="/">
           <Room path="/room/:dasta" />
+          <Info path="info" />
+          <Dashboard path="dashboard" />
         </Protected>
       </Router>
     </div>

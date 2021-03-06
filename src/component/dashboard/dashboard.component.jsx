@@ -85,8 +85,6 @@ export const Dashboard = () => {
     setRetrospectiveName(value)
   }
 
-  console.log(list)
-
   return (
     <form onSubmit={handleGigiSubmit}>
       <DS.StyledFormWrapper>

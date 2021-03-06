@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Redirect } from "@reach/router";
 import { useSelector } from "react-redux";
 
-export const Protected = ({ children }) => {
+const Protected = ({ children }) => {
   const isLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 
   return isLoggedIn ? (
@@ -11,3 +11,9 @@ export const Protected = ({ children }) => {
     <Redirect from="/" to="/login" noThrow />
   );
 };
+
+const ProtectedMemo = memo(Protected)
+
+export {
+  ProtectedMemo as Protected
+} 

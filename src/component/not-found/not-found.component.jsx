@@ -6,7 +6,7 @@ export const NotFound = () => {
     <div>
       <h1>Not Found</h1>
       <p>The hamsters have gone mad! We'll try to fix it as soon as possible.</p>
-      <Redirect from="/" to="/login" noThrow />
+      {/* <Redirect from="/" to="/login" noThrow /> */}
     </div>
   )
 }
